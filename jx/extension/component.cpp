@@ -13,7 +13,7 @@ ComponentExtension::ComponentExtension(juce::Component& parent)
     }) | disposed(bag_);
 
     parent_.addComponentListener(this);
-    parent_.addMouseListener(this, false);
+    parent_.addMouseListener(this, true);
 }
 
 ComponentExtension::~ComponentExtension() {

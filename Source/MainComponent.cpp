@@ -13,7 +13,7 @@ using namespace mk2::rx;
 //==============================================================================
 MainComponent::MainComponent()
 {
-    test_component_.rx.mouse(jx::MouseEventType::kDrag).subscribe([](const auto&) {
+    rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto&) {
         std::cout << "test" << std::endl;
     }) | disposed(bag_);
 
