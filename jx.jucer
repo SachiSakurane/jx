@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="SQYO42" name="jx" projectType="guiapp" jucerVersion="5.4.7">
+<JUCERPROJECT id="SQYO42" name="jx" projectType="guiapp" jucerVersion="5.4.7"
+              cppLanguageStandard="17">
   <MAINGROUP id="JD4nvY" name="jx">
     <GROUP id="{899DDCD1-D634-5C50-82FA-C26EA9D3A3D1}" name="Source">
       <FILE id="yTBjKp" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
@@ -12,8 +13,8 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" headerPath="/lib/RxCpp/Rx/v2/src"/>
-        <CONFIGURATION isDebug="0" name="Release" headerPath="/lib/RxCpp/Rx/v2/src"/>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../lib/libmk2/include&#10;../../lib/RxCpp/Rx/v2/src"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../lib/libmk2/include&#10;../../lib/RxCpp/Rx/v2/src"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../../../../../../Applications/JUCE/modules"/>
@@ -21,13 +22,13 @@
         <MODULEPATH id="juce_audio_formats" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../../../../../../../Applications/JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_events" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_graphics" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="jx" path="."/>
       </MODULEPATHS>
     </XCODE_MAC>
     <CLION targetFolder="Builds/CLion">
@@ -37,13 +38,13 @@
         <MODULEPATH id="juce_audio_formats" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_core" path="../../../../../../../Applications/JUCE/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_data_structures" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_events" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_graphics" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../../../Applications/JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="jx" path="."/>
       </MODULEPATHS>
     </CLION>
   </EXPORTFORMATS>
@@ -53,13 +54,13 @@
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="jx" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <OSX/>

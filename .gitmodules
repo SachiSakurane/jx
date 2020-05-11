@@ -1,3 +1,6 @@
 [submodule "lib/RxCpp"]
 	path = lib/RxCpp
 	url = git@github.com:ReactiveX/RxCpp.git
+[submodule "lib/libmk2"]
+	path = lib/libmk2
+	url = git@github.com:SachiSakurane/libmk2.git

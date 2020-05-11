@@ -29,7 +29,9 @@ public:
 private:
     //==============================================================================
     // Your private member variables go here...
+    mk2::rx::dispose_bag bag_;
 
+    jx::RX<Component> test_component_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

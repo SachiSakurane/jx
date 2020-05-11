@@ -8,9 +8,17 @@
 
 #include "MainComponent.h"
 
+using namespace mk2::rx;
+
 //==============================================================================
 MainComponent::MainComponent()
 {
+    test_component_.rx.mouse(jx::MouseEventType::kDrag).subscribe([](const auto&) {
+        std::cout << "test" << std::endl;
+    }) | disposed(bag_);
+
+    addAndMakeVisible(test_component_);
+
     setSize (600, 400);
 }
 
@@ -34,4 +42,5 @@ void MainComponent::resized()
     // This is called when the MainComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
+    test_component_.setBounds(0, 0, 100, 100);
 }
