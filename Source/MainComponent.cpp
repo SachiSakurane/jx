@@ -17,6 +17,10 @@ MainComponent::MainComponent()
         std::cout << "test" << std::endl;
     }) | disposed(bag_);
 
+    rx.bounds.get_observable().subscribe([this](const auto& bounds) {
+        test_component_.setBounds(0, 0, bounds.getWidth() * 0.2, bounds.getHeight() * 0.2);
+    }) | disposed(bag_);
+
     addAndMakeVisible(test_component_);
 
     setSize (600, 400);
@@ -35,12 +39,4 @@ void MainComponent::paint (Graphics& g)
     g.setFont (Font (16.0f));
     g.setColour (Colours::white);
     g.drawText ("Hello World!", getLocalBounds(), Justification::centred, true);
-}
-
-void MainComponent::resized()
-{
-    // This is called when the MainComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
-    test_component_.setBounds(0, 0, 100, 100);
 }

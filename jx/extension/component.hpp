@@ -17,6 +17,10 @@ enum MouseEventType {
 class ComponentExtension
     : private juce::ComponentListener
     , private juce::MouseListener {
+
+    mk2::rx::dispose_bag bag_;
+    juce::Component& parent_;
+
 public:
     explicit ComponentExtension(juce::Component& parent);
     ~ComponentExtension() override;
@@ -33,7 +37,13 @@ public:
         return magnify_.get_observable();
     }
 
+    const rxcpp::subjects::behavior<juce::Rectangle<int>> bounds;
+
 private:
+    void componentMovedOrResized (juce::Component&, bool, bool) override {
+        bounds.get_subscriber().on_next(parent_.getBounds());
+    }
+
     void mouseMove (const juce::MouseEvent &event) override {
         mouse_[MouseEventType::kMove].get_subscriber().on_next(event);
     }
@@ -61,9 +71,6 @@ private:
     void mouseMagnify (const juce::MouseEvent &event, float scaleFactor) override {
         magnify_.get_subscriber().on_next( std::make_pair(event, scaleFactor) );
     }
-
-    mk2::rx::dispose_bag bag_;
-    juce::Component& parent_;
 
     const rxcpp::subjects::subject<juce::MouseEvent> mouse_[MouseEventType::kDoubleClick + 1];
     const rxcpp::subjects::subject<std::pair<juce::MouseEvent, juce::MouseWheelDetails>> wheel_move_;
