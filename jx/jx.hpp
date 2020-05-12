@@ -27,9 +27,10 @@
 #include <rxcpp/rx.hpp>
 
 namespace jx {
-#include "extension/component.hpp"
+#include "type_traits/sanity.hpp"
 
-#include "reactive/component.hpp"
+#include "extension/component.hpp"
+#include "extension/timer.hpp"
 
 #include "reactive/rx.hpp"
 }

@@ -1,3 +1,4 @@
+
 //
 // Created by Himatya on 2020/05/11.
 //
@@ -15,10 +16,10 @@ enum MouseEventType {
 };
 
 class ComponentExtension
-    : private juce::ComponentListener
-    , private juce::MouseListener {
+    : mk2::rx::has_dispose_bag<ComponentExtension>
+    , juce::ComponentListener
+    , juce::MouseListener {
 
-    mk2::rx::dispose_bag bag_;
     juce::Component& parent_;
 
 public:
@@ -75,4 +76,11 @@ private:
     const rxcpp::subjects::subject<juce::MouseEvent> mouse_[MouseEventType::kDoubleClick + 1];
     const rxcpp::subjects::subject<std::pair<juce::MouseEvent, juce::MouseWheelDetails>> wheel_move_;
     const rxcpp::subjects::subject<std::pair<juce::MouseEvent, float>> magnify_;
+};
+
+template <class ComponentType>
+class _ComponentExtension : public SanityCheck<ComponentExtension, ComponentType, juce::Component> {
+public:
+    explicit _ComponentExtension(ComponentType& parent)
+        : SanityCheck<ComponentExtension, ComponentType, juce::Component>{parent} {}
 };

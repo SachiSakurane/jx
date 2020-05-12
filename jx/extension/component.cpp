@@ -10,7 +10,7 @@ ComponentExtension::ComponentExtension(juce::Component& parent)
 {
     bounds.get_observable().distinct_until_changed().subscribe([this](const auto& b) {
         parent_.setBounds(b);
-    }) | disposed(bag_);
+    }) | disposed(bag);
 
     parent_.addComponentListener(this);
     parent_.addMouseListener(this, true);
