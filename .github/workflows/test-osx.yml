@@ -26,7 +26,7 @@ jobs:
       with:
         repository: 'SachiSakurane/ProjucerPackage'
         path: 'lib/ProjucerPackage'
-        token: ${{ secrets.JX_PAT }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         submodules: recursive
         lfs: true
 
