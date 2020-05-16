@@ -15,7 +15,7 @@ on:
 jobs:
   release-osx:
     env:
-      REPOSITORY_NAME: JX
+      REPOSITORY_NAME: Test
     runs-on: macOS-latest
     steps:
 
@@ -46,6 +46,15 @@ jobs:
 
     - name: Build
       run: 
-        xcodebuild -project "Builds/MacOSX/$REPOSITORY_NAME.xcodeproj" -scheme "$REPOSITORY_NAME - App" -configuration Debug build
+        xcodebuild -project "Test/Builds/MacOSX/$REPOSITORY_NAME.xcodeproj" -scheme "$REPOSITORY_NAME - App" -configuration Debug build
 
     - name: Run Test
+      run: |
+        lldb -s ./bin/lldb_command.script "./Test/Builds/MacOSX/build/Debug/$REPOSITORY_NAME.app" > test.log
+        if [$(grep "All tests completed successfully" test.log) = ""]; then
+          echo "Test Failed"
+          exit 1;
+        else
+          echo "Test Succeed"
+        fi
+
