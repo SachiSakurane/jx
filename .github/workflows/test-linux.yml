@@ -32,16 +32,15 @@ jobs:
 
     - name: Projucer Setting
       run: |
-        chmod 755 ./lib/ProjucerPackage/osx/setup.sh
-        ./lib/ProjucerPackage/osx/setup.sh
-        ./lib/ProjucerPackage/osx/Projucer --resave "./Test/$REPOSITORY_NAME.jucer"
+        chmod 755 ./lib/ProjucerPackage/linux/setup.sh
+        ./lib/ProjucerPackage/linux/setup.sh
+        ./lib/ProjucerPackage/linux/Projucer --resave "./Test/$REPOSITORY_NAME.jucer"
 
     - name: Build
       run: |
         cd Test/Builds/LinuxMakefile
         make
         ls
-        # xcodebuild -project "Test/Builds/MacOSX/$REPOSITORY_NAME.xcodeproj" -scheme "$REPOSITORY_NAME - App" -configuration Debug build
 
     # - name: Run Test
     #   run: |
