@@ -38,11 +38,16 @@ public:
         return magnify_.get_observable();
     }
 
+    [[nodiscard]] rxcpp::observable<juce::Rectangle<int>> boundsChanged() const {
+        return bounds.get_observable().distinct_until_changed();
+    }
+
     const rxcpp::subjects::behavior<juce::Rectangle<int>> bounds;
 
 private:
-    void componentMovedOrResized (juce::Component&, bool, bool) override {
-        bounds.get_subscriber().on_next(parent_.getBounds());
+    void componentMovedOrResized (juce::Component&, bool moved, bool resized) override {
+        if (moved || resized)
+            bounds.get_subscriber().on_next(parent_.getBounds());
     }
 
     void mouseMove (const juce::MouseEvent &event) override {

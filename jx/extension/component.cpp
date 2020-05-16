@@ -8,7 +8,7 @@ ComponentExtension::ComponentExtension(juce::Component& parent)
     : parent_ { parent }
     , bounds { parent.getBounds() }
 {
-    bounds.get_observable().distinct_until_changed().subscribe([this](const auto& b) {
+    bounds.get_observable().subscribe([this](const auto& b) {
         parent_.setBounds(b);
     }) | disposed(bag);
 

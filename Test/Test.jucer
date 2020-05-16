@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="P7iuFO" name="Test" projectType="guiapp" jucerVersion="5.4.7"
+              defines="JUCE_LOG_ASSERTIONS=1" cppLanguageStandard="17">
+  <MAINGROUP id="oKUQpH" name="Test">
+    <GROUP id="{0286691A-ACAF-CFAB-AD41-BB2D165A462D}" name="Source">
+      <GROUP id="{FA6CB27E-1952-0EF5-ED38-ED50FBD2D4D4}" name="Tests">
+        <FILE id="UICozI" name="component.hpp" compile="0" resource="0" file="Source/Tests/component.hpp"/>
+      </GROUP>
+      <FILE id="DLoTPm" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="../../../lib/libmk2/include&#10;../../../lib/RxCpp/Rx/v2/src"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="../../../lib/libmk2/include&#10;../../../lib/RxCpp/Rx/v2/src"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="jx" path="../../jx"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <CLION targetFolder="Builds/CLion">
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="jx" path="../../jx"/>
+      </MODULEPATHS>
+    </CLION>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="jx" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+</JUCERPROJECT>
