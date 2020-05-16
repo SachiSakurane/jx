@@ -32,4 +32,5 @@ namespace jx {
 #include "extension/component.hpp"
 
 #include "reactive/rx.hpp"
+#include "reactive/rx_timer.hpp"
 }
