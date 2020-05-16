@@ -37,7 +37,7 @@ jobs:
       run: |
         chmod 755 ./lib/ProjucerPackage/osx/setup.sh
         ./lib/ProjucerPackage/osx/setup.sh
-        ./lib/ProjucerPackage/osx/Projucer --resave ./$REPOSITORY_NAME.jucer
+        ./lib/ProjucerPackage/osx/Projucer --resave "./Test/$REPOSITORY_NAME.jucer"
 
     - name: Build
       run: 
