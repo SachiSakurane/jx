@@ -41,6 +41,7 @@ jobs:
         cd Test/Builds/LinuxMakefile
         make
         ls
+        
 
     # - name: Run Test
     #   run: |
