@@ -17,7 +17,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        token: ${{ secrets.JX_PAT }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         submodules: recursive
         lfs: true
 

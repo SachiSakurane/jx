@@ -24,9 +24,6 @@ public:
             Rectangle<int> bounds2 {400, 500, 4000, 2100};
             component.rx.bounds.get_subscriber().on_next(bounds2);
             expect(bounds2 == component.rx.bounds.get_value());
-
-            expect(false);
-//            expect(false);
         }
     }
 };
