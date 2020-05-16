@@ -1,0 +1,49 @@
+name: Test OSX
+
+on: 
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    - opened
+  pull_request_review_comment:
+    - created
+
+jobs:
+  release-osx:
+    env:
+      REPOSITORY_NAME: JX
+    runs-on: macOS-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.JX_PAT }}
+        submodules: recursive
+        lfs: true
+
+    - name: Checkout Resource
+      uses: actions/checkout@v2
+      with:
+        repository: 'SachiSakurane/ProjucerPackage'
+        path: 'lib/ProjucerPackage'
+        token: ${{ secrets.JX_PAT }}
+        submodules: recursive
+        lfs: true
+
+    - name: Select Xcode version
+      run: sudo xcode-select -s '/Applications/Xcode_11.3.1.app/Contents/Developer'
+
+    - name: Projucer Setting
+      run: |
+        chmod 755 ./lib/ProjucerPackage/osx/setup.sh
+        ./lib/ProjucerPackage/osx/setup.sh
+        ./lib/ProjucerPackage/osx/Projucer --resave ./$REPOSITORY_NAME.jucer
+
+    - name: Build
+      run: 
+        xcodebuild -project "Builds/MacOSX/$REPOSITORY_NAME.xcodeproj" -scheme "$REPOSITORY_NAME - App" -configuration Debug build
+
+    - name: Run Test
