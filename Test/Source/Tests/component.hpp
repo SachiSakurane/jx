@@ -25,7 +25,7 @@ public:
             component.rx.bounds.get_subscriber().on_next(bounds2);
             expect(bounds2 == component.rx.bounds.get_value());
 
-//            expect(false);
+            expect(false);
 //            expect(false);
         }
     }
