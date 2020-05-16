@@ -6,9 +6,11 @@ on:
       - master
       - develop
   pull_request:
-    - opened
+    types:
+      - opened
   pull_request_review_comment:
-    - created
+    types:
+      - created
 
 jobs:
   release-osx:
