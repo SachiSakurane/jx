@@ -7,5 +7,4 @@
 
 namespace jx {
 #include "extension/component.cpp"
-#include "extension/timer.cpp"
 }

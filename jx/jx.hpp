@@ -30,7 +30,6 @@ namespace jx {
 #include "type_traits/sanity.hpp"
 
 #include "extension/component.hpp"
-#include "extension/timer.hpp"
 
 #include "reactive/rx.hpp"
 }
