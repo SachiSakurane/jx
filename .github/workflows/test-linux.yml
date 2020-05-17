@@ -41,7 +41,9 @@ jobs:
 
     - name: Build
       run: |
-        cd Test/Builds/LinuxMakefile
+        cd Test
+        cd Builds
+        cd LinuxMakefile
         make
         ls -R
 
