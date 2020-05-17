@@ -37,13 +37,13 @@ jobs:
     - name: Projucer Setting
       run: |
         chmod 755 lib/ProjucerPackage/linux/setup.sh
-        lib/ProjucerPackage/linux/setup.sh lib/ProjucerPackage/linux/Projucer "Test/$REPOSITORY_NAME.jucer"
+        lib/ProjucerPackage/linux/setup.sh "Test/$REPOSITORY_NAME.jucer"
 
     - name: Build
       run: |
         cd Test/Builds/LinuxMakefile
         make
-        ls
+        ls -R
 
     # - name: Run Test
     #   run: |
