@@ -33,7 +33,9 @@ jobs:
     - name: Juce Dependency
       run: |
         sudo apt-get install -y libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
-        # add-apt-repository -y ppa:webkit-team/ppa && apt-get install libwebkit2gtk-4.0-37 libwebkit2gtk-4.0-dev
+        sudo add-apt-repository ppa:webkit-team/ppa
+        sudo apt-get update
+        sudo apt-get install libwebkit2gtk-4.0-dev
 
     - name: Projucer Setting
       run: |
