@@ -36,8 +36,9 @@ jobs:
 
     - name: Projucer Setting
       run: |
-        chmod 755 lib/ProjucerPackage/linux/setup.sh
-        lib/ProjucerPackage/linux/setup.sh "Test/$REPOSITORY_NAME.jucer"
+        cd lib/ProjucerPackage/linux
+        chmod 755 ./setup.sh
+        ./setup.sh "../../../Test/$REPOSITORY_NAME.jucer"
 
     - name: ls -R
       run: |
