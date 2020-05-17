@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
 
-
     - name: Checkout
       uses: actions/checkout@v2
       with:
@@ -35,7 +34,7 @@ jobs:
       run: |
         chmod 755 lib/ProjucerPackage/linux/setup.sh
         chmod 755 lib/ProjucerPackage/linux/Projucer
-        JUCE_DIR=$(pwd)/lib/ProjucerPackage xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" lib/ProjucerPackage/linux/setup.sh
+        JUCE_DIR=lib/ProjucerPackage xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" lib/ProjucerPackage/linux/setup.sh
 
     - name: Build
       run: |
