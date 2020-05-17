@@ -34,9 +34,9 @@ jobs:
 
     - name: Projucer Setting
       run: |
-        chmod 755 lib/ProjucerPackage/linux/setup.sh
-        lib/ProjucerPackage/linux/setup.sh
+        chmod 755 lib/ProjucerPackage/linux/Projucer
         xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
+        lib/ProjucerPackage/linux/Projucer --set-global-search-path linux defaultJuceModulePath lib/ProjucerPackage/modules \
         lib/ProjucerPackage/linux/Projucer --resave Test/Test.jucer
 
     - name: ls -R
