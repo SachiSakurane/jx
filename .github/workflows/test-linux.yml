@@ -36,6 +36,7 @@ jobs:
       run: |
         chmod 755 lib/ProjucerPackage/linux/setup.sh
         lib/ProjucerPackage/linux/setup.sh
+        ls
         xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
         lib/ProjucerPackage/linux/Projucer --resave Test/Test.jucer
 
