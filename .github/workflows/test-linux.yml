@@ -52,6 +52,7 @@ jobs:
         make
         ls -R
 
+
     # - name: Run Test
     #   run: |
     #     lldb -s ./bin/lldb_command.script "./Test/Builds/Linux/build/Debug/$REPOSITORY_NAME" > test.log
