@@ -38,10 +38,11 @@ jobs:
       run: |
         cd lib/ProjucerPackage/linux
         chmod 755 ./setup.sh
-        ./setup.sh "../../../Test/$REPOSITORY_NAME.jucer"
+        ./setup.sh "~/Test/$REPOSITORY_NAME.jucer"
 
     - name: ls -R
       run: |
+        cd ~
         ls -R
 
     - name: Build
