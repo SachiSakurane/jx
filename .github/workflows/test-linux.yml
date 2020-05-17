@@ -39,10 +39,13 @@ jobs:
         chmod 755 lib/ProjucerPackage/linux/setup.sh
         lib/ProjucerPackage/linux/setup.sh "Test/$REPOSITORY_NAME.jucer"
 
+    - name: ls -R
+      run: |
+        ls -R
+
     - name: Build
       run: |
         cd Test
-        ls 
         cd Builds
         cd LinuxMakefile
         make
