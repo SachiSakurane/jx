@@ -32,7 +32,7 @@ jobs:
 
     - name: Juce Dependency
       run: |
-        sudo apt-get install libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev libwebkit2gtk-4.0-dev
+        sudo apt-get install xauth xorg openbox libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev libwebkit2gtk-4.0-dev
 
     - name: Projucer Setting
       run: |
