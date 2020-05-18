@@ -9,6 +9,9 @@ on:
 
 jobs:
   test-linux:
+    env:
+      PRODUCT_NAME: Test
+      LOG_FILE_NAME: test.log
     runs-on: ubuntu-latest
     steps:
 
