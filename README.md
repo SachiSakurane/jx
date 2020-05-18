@@ -13,6 +13,17 @@ jx is a C++ header-only library that brings RX(Reactive Extensions) to JUCE.
 - [RxCpp](https://github.com/ReactiveX/RxCpp)
 - [JUCE](https://github.com/juce-framework/JUCE)
 
+## Features
+RX for...
+
+- [x] Component
+- [x] Timer
+- [ ] ValueTree
+- [ ] Button
+- [ ] Slider
+- [ ] Label
+
+
 ## Installation
 ### JUCE5
 Add this repository to your `Header Seatch Path` on Projucer.
@@ -35,7 +46,7 @@ rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
 });
 ```
 
-## Getting Started
+## Usage
 ### Component
 ```c++
 jx::RX<Component> rxComponent;
@@ -49,6 +60,9 @@ rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
 rxComponent.rx.boundsChanged().subscribe([this](const auto& b) {    
     // You can also write code here that you would normally write in resized().
 }); 
+
+// change bounds
+rxComponent.rx.bounds.get_subscriber().on_next(changedBounds)
 
 ```
 ### RXTimer
@@ -71,8 +85,6 @@ private:
 
 };
 ```
-
-## Usage
 
 ## Author
 [SachiSakurane](https://twitter.com/sakurane_sachi)
