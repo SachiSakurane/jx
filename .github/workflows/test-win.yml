@@ -1,0 +1,39 @@
+name: Test Windows
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+
+jobs:
+  test-win:
+    env:
+      PRODUCT_NAME: Test
+      LOG_FILE_NAME: test.log
+    runs-on: windows-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Build
+        shell: bash
+        run: |
+          cmake -B cmake-build
+          cmake --build cmake-build --target Test -j 2  --config Release
+
+      - name: Run Test
+        shell: bash
+        run: |
+          "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.exe" > $LOG_FILE_NAME
+          cat $LOG_FILE_NAME
+          if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
+            echo "Test Succeed"
+          else
+            echo "Test Failed"
+            exit 1;
+          fi
