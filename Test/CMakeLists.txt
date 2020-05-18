@@ -12,7 +12,6 @@ juce_add_gui_app(Test
 
 juce_generate_juce_header(Test)
 target_include_directories(Test PRIVATE
-        "../lib/libmk2/include"
         "../lib/RxCpp/Rx/v2/src"
         "../../jx")
 
