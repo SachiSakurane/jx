@@ -18,18 +18,10 @@
 #include <type_traits>
 #include <utility>
 
-#include <juce_core/juce_core.h>
-#include <juce_data_structures/juce_data_structures.h>
-#include <juce_events/juce_events.h>
-#include <juce_gui_basics/juce_gui_basics.h>
 #include <mk2/rx.hpp>
 #include <rxcpp/rx.hpp>
 
-namespace jx {
-#include "type_traits/sanity.hpp"
+#include <jx/extension/component.hpp>
 
-#include "extension/component.hpp"
-
-#include "reactive/rx.hpp"
-#include "reactive/rx_timer.hpp"
-}
+#include <jx/reactive/rx.hpp>
+#include <jx/reactive/rx_timer.hpp>

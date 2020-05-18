@@ -4,39 +4,50 @@
 
 #pragma once
 
-class RXTimer : private juce::Timer {
-public:
-    struct RXTimerEvent {};
+#include <juce_events/juce_events.h>
 
-    RXTimer() = default;
-    RXTimer(int freq) {
-        start(freq);
-    }
+namespace jx
+{
+    class RXTimer : private juce::Timer
+    {
+    public:
+        struct RXTimerEvent {};
 
-    void start(int freq) {
-        startTimerHz(freq);
-        activity.get_subscriber().on_next(true);
-    }
+        RXTimer () = default;
+        explicit RXTimer (int freq)
+        {
+            start(freq);
+        }
 
-    void stop() {
-        stopTimer();
-        activity.get_subscriber().on_next(false);
-    }
+        void start (int freq)
+        {
+            startTimerHz(freq);
+            activity.get_subscriber().on_next(true);
+        }
 
-    [[nodiscard]] rxcpp::composite_subscription subscribe(std::function<void()>&& f) const {
-        return timer_.get_observable().subscribe([v = std::move(f)](const auto& ) {
-            v();
-        });
-    }
+        void stop ()
+        {
+            stopTimer();
+            activity.get_subscriber().on_next(false);
+        }
 
-    [[nodiscard]] bool running() const { return isTimerRunning(); }
+        [[nodiscard]] rxcpp::composite_subscription subscribe (std::function<void ()> &&f) const
+        {
+            return timer_.get_observable().subscribe([v = std::move(f)] (const auto &) {
+                v();
+            });
+        }
 
-    const rxcpp::subjects::subject<bool> activity;
+        [[nodiscard]] bool running () const { return isTimerRunning(); }
 
-private:
-    void timerCallback() override {
-        timer_.get_subscriber().on_next(RXTimerEvent());
-    }
+        const rxcpp::subjects::subject<bool> activity;
 
-    const rxcpp::subjects::subject<RXTimerEvent> timer_;
-};
+    private:
+        void timerCallback () override
+        {
+            timer_.get_subscriber().on_next(RXTimerEvent());
+        }
+
+        const rxcpp::subjects::subject <RXTimerEvent> timer_;
+    };
+}
