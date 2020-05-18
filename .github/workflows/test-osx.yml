@@ -5,49 +5,33 @@ on:
     branches:
       - master
       - develop
-
+  pull_request:
+    
 jobs:
   test-osx:
     env:
-      REPOSITORY_NAME: Test
+      PRODUCT_NAME: Test
+      LOG_FILE_NAME: test.log
     runs-on: macOS-latest
     steps:
 
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        token: ${{ secrets.JX_PAT }}
         submodules: recursive
-        lfs: true
-
-    - name: Checkout Resource
-      uses: actions/checkout@v2
-      with:
-        repository: 'SachiSakurane/ProjucerPackage'
-        path: 'lib/ProjucerPackage'
-        token: ${{ secrets.JX_PAT }}
-        submodules: recursive
-        lfs: true
-
-    - name: Select Xcode version
-      run: sudo xcode-select -s '/Applications/Xcode_11.3.1.app/Contents/Developer'
-
-    - name: Projucer Setting
-      run: |
-        chmod 755 ./lib/ProjucerPackage/osx/setup.sh
-        ./lib/ProjucerPackage/osx/setup.sh
-        ./lib/ProjucerPackage/osx/Projucer --resave "./Test/$REPOSITORY_NAME.jucer"
 
     - name: Build
-      run: 
-        xcodebuild -project "Test/Builds/MacOSX/$REPOSITORY_NAME.xcodeproj" -scheme "$REPOSITORY_NAME - App" -configuration Debug build
+      run: |
+        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
+        cmake --build cmake-build --target Test -j 2
 
     - name: Run Test
       run: |
-        lldb -s ./bin/lldb_command.script "./Test/Builds/MacOSX/build/Debug/$REPOSITORY_NAME.app" > test.log
-        if [$(grep "All tests completed successfully" test.log) = ""]; then
+        lldb -s ./bin/lldb_command.script "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME.app" > $LOG_FILE_NAME
+        cat $LOG_FILE_NAME
+        if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
+          echo "Test Succeed"
+        else
           echo "Test Failed"
           exit 1;
-        else
-          echo "Test Succeed"
         fi

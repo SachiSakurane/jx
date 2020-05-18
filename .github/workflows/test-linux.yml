@@ -9,40 +9,30 @@ on:
 
 jobs:
   test-linux:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
 
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        token: ${{ secrets.JX_PAT }}
         submodules: recursive
 
-    - name: Juce Dependency
+    - name: Install Dependency Packages
       run: |
-        sudo apt-get install -y xvfb libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev libwebkit2gtk-4.0-dev
-
-    - name: Projucer Setting
-      run: |
-        chmod 755 lib/ProjucerPackage/linux/setup.sh
-        chmod 755 lib/ProjucerPackage/linux/Projucer
-        JUCE_DIR=$(pwd)/lib/ProjucerPackage xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" lib/ProjucerPackage/linux/setup.sh Test/Test.jucer
+        sudo apt-get install -y libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
 
     - name: Build
       run: |
-        cd Test
-        cd Builds
-        cd LinuxMakefile
-        make
-        ls -R
+        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
+        cmake --build cmake-build --target Test -j 2
 
-
-    # - name: Run Test
-    #   run: |
-    #     lldb -s ./bin/lldb_command.script "./Test/Builds/Linux/build/Debug/$REPOSITORY_NAME" > test.log
-    #     if [$(grep "All tests completed successfully" test.log) = ""]; then
-    #       echo "Test Failed"
-    #       exit 1;
-    #     else
-    #       echo "Test Succeed"
-    #     fi
+    - name: Run Test
+      run: |
+        lldb -s ./bin/lldb_command.script "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME.app" > $LOG_FILE_NAME
+        cat $LOG_FILE_NAME
+        if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
+          echo "Test Succeed"
+        else
+          echo "Test Failed"
+          exit 1;
+        fi

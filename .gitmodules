@@ -4,6 +4,6 @@
 [submodule "lib/libmk2"]
 	path = lib/libmk2
 	url = git@github.com:SachiSakurane/libmk2.git
-[submodule "lib/ProjucerPackage"]
-	path = lib/ProjucerPackage
-	url = git@github.com:SachiSakurane/ProjucerPackage.git
+[submodule "lib/JUCE"]
+	path = lib/JUCE
+	url = git@github.com:juce-framework/JUCE.git
