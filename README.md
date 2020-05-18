@@ -3,8 +3,7 @@
 ![Test OSX](https://github.com/SachiSakurane/jx/workflows/Test%20OSX/badge.svg)
 ![Test Windows](https://github.com/SachiSakurane/jx/workflows/Test%20Windows/badge.svg)
 ![C++ 17](https://img.shields.io/badge/C++-Solutions-blue.svg?style=flat&logo=c%2B%2B)
-![GPL](http://img.shields.io/:license-gpl3-blue.svg)
-![Badge](https://img.shields.io/badge/oppai-nomeaing-red.svg)
+![BSL](http://img.shields.io/:license-BSL-blue.svg)
 
 jx is a C++ header-only library that brings RX(Reactive Extensions) to JUCE
 
