@@ -10,7 +10,11 @@
 
 #include <JuceHeader.h>
 
-#include "Tests/component.hpp"
+#include <mk2/rx.hpp>
+#include <jx/jx.hpp>
+
+#include "Tests/extension/component.hpp"
+#include "Tests/reactive/rx_timer.hpp"
 
 //==============================================================================
 class TestApplication  : public JUCEApplication
