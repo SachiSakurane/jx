@@ -6,7 +6,6 @@
 
 namespace jx
 {
-
     template <class Type, template <class> class Extension>
     class ReactiveImpl2 : public Extension<Type>
     {

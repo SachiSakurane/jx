@@ -15,10 +15,6 @@
 
 #pragma once
 
-#include <type_traits>
-#include <utility>
-
-#include <mk2/rx.hpp>
 #include <rxcpp/rx.hpp>
 
 #include <jx/extension/component.hpp>
