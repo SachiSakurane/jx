@@ -28,7 +28,7 @@ jobs:
 
     - name: Run Test
       run: |
-        lldb -s ./bin/lldb_command.script "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME.app" > $LOG_FILE_NAME
+        "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME" > $LOG_FILE_NAME
         cat $LOG_FILE_NAME
         if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
           echo "Test Succeed"
