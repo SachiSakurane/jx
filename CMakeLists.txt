@@ -53,7 +53,6 @@ juce_add_gui_app(JX
 
 juce_generate_juce_header(JX)
 target_include_directories(JX PRIVATE
-        "lib/libmk2/include"
         "lib/RxCpp/Rx/v2/src"
         "../jx")
 
