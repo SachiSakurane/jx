@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <type_traits>
+
 namespace jx
 {
     template <class Type, class TargetType, class BaseType, typename Enable = void>

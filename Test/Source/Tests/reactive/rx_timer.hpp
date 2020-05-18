@@ -12,12 +12,12 @@ private:
     void runTest() override {
         beginTest("Timer Toggle Test");
         {
-            mk2::rx::dispose_bag bag;
+            jx::dispose_bag bag;
             jx::RXTimer timer;
 
             timer.activity.get_observable().subscribe([this](bool flag){
                 logMessage("Timer toggled: " + std::to_string(flag));
-            }) | mk2::rx::disposed(bag);
+            }) | jx::disposed(bag);
 
             timer.start(60);
             timer.stop();

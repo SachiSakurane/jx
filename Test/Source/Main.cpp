@@ -10,7 +10,6 @@
 
 #include <JuceHeader.h>
 
-#include <mk2/rx.hpp>
 #include <jx/jx.hpp>
 
 #include "Tests/extension/component.hpp"
