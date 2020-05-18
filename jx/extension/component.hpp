@@ -8,6 +8,8 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 
 #include <jx/type_traits/sanity.hpp>
+#include <jx/utility/disposed.hpp>
+#include <jx/utility/has_dispose_bag.hpp>
 
 namespace jx
 {
@@ -23,7 +25,9 @@ namespace jx
     };
 
     class ComponentExtension
-        : mk2::rx::has_dispose_bag<ComponentExtension>, juce::ComponentListener, juce::MouseListener
+        : jx::has_dispose_bag<ComponentExtension>
+        , juce::ComponentListener
+        , juce::MouseListener
     {
 
         juce::Component &parent_;
@@ -34,7 +38,7 @@ namespace jx
         {
             bounds.get_observable().subscribe([this] (const auto &b) {
                 parent_.setBounds(b);
-            }) | disposed(bag);
+            }) | jx::disposed(bag);
 
             parent_.addComponentListener(this);
             parent_.addMouseListener(this, true);
