@@ -62,17 +62,18 @@ If you concatenate `disposed` to the end, it will automatically unsubscribe via 
 ## Usage
 ### Component
 ```c++
+jx::dispose_bag bag;
 jx::RX<Component> rxComponent;
 
 // It'll be called if the mouse down.
 rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
     // on your professional code...
-});
+}) | jx::disposed(jx);
 
 // You can also get bounds events.
 rxComponent.rx.boundsChanged().subscribe([this](const auto& b) {    
     // You can also write code here that you would normally write in resized().
-}); 
+}) | jx::disposed(jx); 
 
 // change bounds
 rxComponent.rx.bounds.get_subscriber().on_next(newBounds)
@@ -82,13 +83,13 @@ rxComponent.rx.bounds.get_subscriber().on_next(newBounds)
 The timer callback is old, so let's subscribe to it in a nice way.
 Keep the RXTimer variable, it does not need to be inherited.
 ```c++
-class NiceClass : public Component {
+class NiceClass : jx::has_dispose_bag<NiceClass> {
 public:
     NiceClass() : ultimate_timer {30} // start at 30Hz
     {
         ultimate_timer.subscribe([]() {
-            // on your amazing code...
-        });
+            // on your nice code...
+        }) | jx::disposed(bag);
         // Of course you can do it with timer.start() and timer.stop()!
     }
 
