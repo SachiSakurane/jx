@@ -46,6 +46,19 @@ rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
 });
 ```
 
+If you concatenate `disposed` to the end, it will automatically unsubscribe via the RAII when it exits the scope.
+```c++
+{
+    jx::dispose_bag bag;
+    jx::RX<Component> rxComponent;
+
+    // It'll be called if the mouse down.
+    rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
+        // on your sexy code...
+    }) | jx::disposed(bag); // When the dispose_bag exits the scope, it unsubscribes.
+}
+```
+
 ## Usage
 ### Component
 ```c++
@@ -53,7 +66,7 @@ jx::RX<Component> rxComponent;
 
 // It'll be called if the mouse down.
 rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
-    // on your lovely code...
+    // on your professional code...
 });
 
 // You can also get bounds events.
@@ -62,7 +75,7 @@ rxComponent.rx.boundsChanged().subscribe([this](const auto& b) {
 }); 
 
 // change bounds
-rxComponent.rx.bounds.get_subscriber().on_next(changedBounds)
+rxComponent.rx.bounds.get_subscriber().on_next(newBounds)
 
 ```
 ### RXTimer
@@ -71,13 +84,12 @@ Keep the RXTimer variable, it does not need to be inherited.
 ```c++
 class NiceClass : public Component {
 public:
-    NiceClass() 
-        : ultimate_timer {30} // start at 30Hz
+    NiceClass() : ultimate_timer {30} // start at 30Hz
     {
         ultimate_timer.subscribe([]() {
-            // on your hopefully code...
+            // on your amazing code...
         });
-        // Of course you can do it with Start() and Stop()!
+        // Of course you can do it with timer.start() and timer.stop()!
     }
 
 private:
