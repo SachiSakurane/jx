@@ -8,20 +8,29 @@
 
 #include "MainComponent.h"
 
-using namespace mk2::rx;
+using namespace jx;
 
 //==============================================================================
 MainComponent::MainComponent()
 {
+    rx.resized().subscribe([this](const auto& bounds) {
+        component_.setBounds(0, 0, bounds.getWidth() * 0.2, bounds.getHeight() * 0.2);
+    }) | disposed(bag);
+
+    component_.rx.paint().subscribe([](Graphics& g) {
+        g.fillAll(Colour::fromRGB(0,0,0));
+    }) | disposed(bag);
+
+    // mouse
     rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto&) {
-        std::cout << "test" << std::endl;
-    }) | disposed(bag_);
+        std::cout << "Mouse Down!" << std::endl;
+    }) | disposed(bag);
 
-    rx.bounds.get_observable().subscribe([this](const auto& bounds) {
-        test_component_.setBounds(0, 0, bounds.getWidth() * 0.2, bounds.getHeight() * 0.2);
-    }) | disposed(bag_);
+    component_.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto&) {
+        std::cout << "Sub Component Mouse Down!" << std::endl;
+    }) | disposed(bag);
 
-    addAndMakeVisible(test_component_);
+    addAndMakeVisible(component_);
 
     setSize (600, 400);
 }

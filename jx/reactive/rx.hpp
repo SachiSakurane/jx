@@ -4,45 +4,30 @@
 
 #pragma once
 
+#include <jx/extension/component_listener.hpp>
+#include <jx/reactive/reactive.hpp>
+
+#include <jx/reactive/base_component.hpp>
+#include <jx/extension/base_component.hpp>
+
 namespace jx
 {
-    template <class Type, template <class> class Extension>
-    class ReactiveImpl2 : public Extension<Type>
-    {
+    // Typeとis_sameでふるい掛けて
+    // Componentはbased
+    template <class Type>
+    class RXType : public jx::BaseComponent<Type> {
     public:
-        explicit ReactiveImpl2 (Type &type) : Extension<Type>{type} {}
-    };
-
-    template <class Type, template <class> class Extension,
-        template <class> class... Extensions>
-    class ReactiveImpl : public ReactiveImpl2<Type, Extension>, public ReactiveImpl<Type, Extensions...>
-    {
-    public:
-        explicit ReactiveImpl (Type &type)
-            : ReactiveImpl2<Type, Extension>{type}, ReactiveImpl<Type, Extensions...>{type} {}
-    };
-
-    template <class Type, template <class> class Extension>
-    class ReactiveImpl<Type, Extension> : public ReactiveImpl2<Type, Extension>
-    {
-    public:
-        explicit ReactiveImpl (Type &type) : ReactiveImpl2<Type, Extension>{type} {}
-    };
-
-    template <class Type, template <class> class... ExtensionType>
-    class Reactive : public ReactiveImpl<Type, ExtensionType...>
-    {
-    public:
-        explicit Reactive (Type &type) : ReactiveImpl<Type, ExtensionType...>{type} {}
     };
 
     template <class Type>
-    class RX : public Type
+    class RX : public jx::BaseComponent<Type>
     {
     public:
-        template <typename... Args>
-        explicit RX (Args &&... args) : Type{std::forward<Args>(args)...}, rx(*this) {}
+        using BaseType = jx::BaseComponent<Type>;
 
-        const Reactive<Type, _ComponentExtension> rx;
+        template <typename... Args>
+        explicit RX (Args &&... args) : BaseType {std::forward<Args>(args)...}, rx(*this) {}
+
+        const Reactive<BaseType, _BaseComponentExtension, _ComponentListenerExtension> rx;
     };
 }

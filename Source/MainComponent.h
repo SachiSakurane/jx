@@ -16,29 +16,19 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent : public jx::RX<Component>
+class MainComponent : public jx::RX<Component>, private jx::has_dispose_bag<MainComponent>
 {
 public:
     //==============================================================================
     MainComponent();
     ~MainComponent();
 
-    //==============================================================================
-    void paint (Graphics&) override;
-
-    class TestComponent : public Component {
-    private:
-        void paint (Graphics& g) override {
-            g.fillAll(Colour::fromRGB(0, 0, 0));
-        }
-    };
+    void paint(Graphics&) override;
 
 private:
     //==============================================================================
     // Your private member variables go here...
-    mk2::rx::dispose_bag bag_;
-
-    jx::RX<TestComponent> test_component_;
+    jx::RX<Component> component_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
