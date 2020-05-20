@@ -14,7 +14,7 @@ namespace jx
     class BaseComponent {};
 
     template<class ComponentType>
-    class BaseComponent<ComponentType, std::enable_if_t<std::is_base_of_v<ComponentType, juce::Component>>>
+    class BaseComponent<ComponentType, std::enable_if_t<std::is_base_of_v<juce::Component, ComponentType>>>
         : public ComponentType {
     public:
         template <typename... Args>
