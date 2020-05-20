@@ -17,7 +17,8 @@
 
 #include <rxcpp/rx.hpp>
 
-#include <jx/extension/component.hpp>
+#include <jx/extension/component_listener.hpp>
 
 #include <jx/reactive/rx.hpp>
 #include <jx/reactive/rx_timer.hpp>
+#include <jx/reactive/base_component.hpp>

@@ -16,7 +16,7 @@ namespace jx
     };
 
     template <class Type, class TargetType, class BaseType>
-    class SanityCheck<Type, TargetType, BaseType, std::enable_if_t < std::is_base_of_v < TargetType, BaseType>>>
+    class SanityCheck<Type, TargetType, BaseType, std::enable_if_t < std::is_base_of_v <BaseType, TargetType>>>
         : public Type
     {
     public:

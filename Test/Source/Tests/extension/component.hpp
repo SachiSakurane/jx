@@ -9,6 +9,21 @@ public:
     RXComponentTest() : UnitTest("RXComponentTest") {}
 
     void runTest() override {
+        beginTest("Visibility Test");
+        {
+            jx::dispose_bag bag;
+            jx::RX<Component> component;
+
+            component.rx.visibility().subscribe([this](const bool& b){
+                logMessage("subject visibility changed: " + std::to_string(b));
+            }) | jx::disposed(bag);
+
+            component.setVisible(true);
+            expect(component.isVisible());
+            component.setVisible(false);
+            expect(!component.isVisible());
+        }
+
         beginTest("Mouse Test");
         {
             jx::dispose_bag bag;
@@ -33,15 +48,13 @@ public:
 
             Rectangle<int> bounds1 {100, 50, 400, 200};
             jx::RX<Component> component;
-            component.rx.boundsChanged().subscribe([this](const auto& b) {
+            component.rx.bounds().subscribe([this](const auto& b) {
                 logMessage("subject bounds changed: " + b.toString());
             }) | jx::disposed(bag);
-            component.rx.bounds.get_subscriber().on_next(bounds1);
-            expect(bounds1 == component.rx.bounds.get_value());
+            component.setBounds(bounds1);
 
             Rectangle<int> bounds2 {400, 500, 4000, 2100};
-            component.rx.bounds.get_subscriber().on_next(bounds2);
-            expect(bounds2 == component.rx.bounds.get_value());
+            component.setBounds(bounds2);
         }
     }
 };
