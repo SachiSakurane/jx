@@ -13,6 +13,7 @@
 #include <jx/jx.hpp>
 
 #include "Tests/extension/component.hpp"
+#include "Tests/extension/button.hpp"
 #include "Tests/reactive/rx_timer.hpp"
 
 //==============================================================================
