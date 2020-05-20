@@ -20,7 +20,7 @@ namespace jx
             return parent_.paint_.get_observable();
         }
 
-        [[nodiscard]] rxcpp::observable<Rectangle<int>> resized() const {
+        [[nodiscard]] rxcpp::observable<juce::Rectangle<int>> resized() const {
             return parent_.resized_.get_observable();
         }
 

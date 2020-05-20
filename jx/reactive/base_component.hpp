@@ -35,6 +35,6 @@ namespace jx
         }
 
         const rxcpp::subjects::subject<std::reference_wrapper<juce::Graphics>> paint_;
-        const rxcpp::subjects::subject<Rectangle<int>> resized_;
+        const rxcpp::subjects::subject<juce::Rectangle<int>> resized_;
     };
 }
