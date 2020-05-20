@@ -10,6 +10,8 @@ class RXComponentTest : public UnitTest {
 public:
     RXComponentTest() : UnitTest("RXComponentTest") {}
 
+    class SubComponent : public Component {};
+
     void runTest() override {
         beginTest("Visibility Test");
         {
@@ -24,6 +26,13 @@ public:
         beginTest("Bounds Test");
         {
             ComponentBoundsTest<Component>(*this);
+        }
+
+        beginTest("SubComponent Test");
+        {
+            ComponentVisibilityTest<SubComponent>(*this);
+            ComponentMouseTest<SubComponent>(*this);
+            ComponentBoundsTest<SubComponent>(*this);
         }
     }
 };
