@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <rxcpp/rx.hpp>
+
 namespace jx {
     class dispose_bag {
     public:

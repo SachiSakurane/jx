@@ -24,27 +24,21 @@ namespace jx
         kDoubleClick,
     };
 
-    class ComponentExtension
-        : jx::has_dispose_bag<ComponentExtension>
-        , juce::ComponentListener
+    class ComponentListenerExtension
+        : juce::ComponentListener
         , juce::MouseListener
     {
-
         juce::Component &parent_;
 
     public:
-        explicit ComponentExtension (juce::Component &parent)
-            : parent_{parent}, bounds{parent.getBounds()}
+        explicit ComponentListenerExtension (juce::Component &parent)
+            : parent_ { parent }
         {
-            bounds.get_observable().subscribe([this] (const auto &b) {
-                parent_.setBounds(b);
-            }) | jx::disposed(bag);
-
             parent_.addComponentListener(this);
             parent_.addMouseListener(this, true);
         }
 
-        ~ComponentExtension () override
+        ~ComponentListenerExtension () override
         {
             parent_.removeComponentListener(this);
             parent_.removeMouseListener(this);
@@ -65,18 +59,32 @@ namespace jx
             return magnify_.get_observable();
         }
 
-        [[nodiscard]] rxcpp::observable <juce::Rectangle<int>> boundsChanged () const
+        [[nodiscard]] rxcpp::observable <juce::Rectangle<int>> bounds () const
         {
-            return bounds.get_observable().distinct_until_changed();
+            return bounds_.get_observable().distinct_until_changed();
         }
 
-        const rxcpp::subjects::behavior <juce::Rectangle<int>> bounds;
+        [[nodiscard]] rxcpp::observable <bool> visibility () const {
+            return visibility_.get_observable();
+        }
+
+        [[nodiscard]] rxcpp::observable <bool> enablement () const {
+            return enablement_.get_observable();
+        }
 
     private:
         void componentMovedOrResized (juce::Component &, bool moved, bool resized) override
         {
             if (moved || resized)
-                bounds.get_subscriber().on_next(parent_.getBounds());
+                bounds_.get_subscriber().on_next(parent_.getBounds());
+        }
+
+        void componentVisibilityChanged (juce::Component &) override {
+            visibility_.get_subscriber().on_next(parent_.isVisible());
+        }
+
+        void componentEnablementChanged (juce::Component &) override {
+            enablement_.get_subscriber().on_next(parent_.isEnabled());
         }
 
         void mouseMove (const juce::MouseEvent &event) override
@@ -127,13 +135,18 @@ namespace jx
         const rxcpp::subjects::subject <juce::MouseEvent> mouse_[MouseEventType::kDoubleClick + 1];
         const rxcpp::subjects::subject <std::pair<juce::MouseEvent, juce::MouseWheelDetails>> wheel_move_;
         const rxcpp::subjects::subject <std::pair<juce::MouseEvent, float>> magnify_;
+
+        const rxcpp::subjects::subject <juce::Rectangle<int>> bounds_;
+        const rxcpp::subjects::subject <bool> visibility_;
+        const rxcpp::subjects::subject <bool> enablement_;
+
     };
 
     template <class ComponentType>
-    class _ComponentExtension : public SanityCheck<ComponentExtension, ComponentType, juce::Component>
+    class _ComponentListenerExtension : public SanityCheck<ComponentListenerExtension, ComponentType, juce::Component>
     {
     public:
-        explicit _ComponentExtension (ComponentType &parent)
-            : SanityCheck<ComponentExtension, ComponentType, juce::Component>{parent} {}
+        explicit _ComponentListenerExtension (ComponentType &parent)
+            : SanityCheck<ComponentListenerExtension, ComponentType, juce::Component>{parent} {}
     };
 }

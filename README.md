@@ -37,7 +37,7 @@ target_include_directories(PROJECT_NAME PRIVATE "path/to/jx")
 ```
 
 ## Getting Started
-By inserting your own COMPONENT into jx::\<COMPONENT>, (If it is a type that jx can identify)`rx` extension is generated.
+By inserting a JUCE Component into jx::\<COMPONENT>, (If it is a type that jx can identify)`rx` extension is generated.
 Let's actually add RX to the `Component`.
 ```c++
 jx::RX<Component> rxComponent;
@@ -61,6 +61,8 @@ If you concatenate `disposed` to the end, it will automatically unsubscribe via 
 }
 ```
 
+For a more practical example, please see Project JX.
+
 ## Usage
 ### Component
 ```c++
@@ -72,14 +74,10 @@ rxComponent.rx.mouse(jx::MouseEventType::kDown).subscribe([](const auto& enent){
     // on your professional code...
 }) | jx::disposed(jx);
 
-// You can also get bounds events.
-rxComponent.rx.boundsChanged().subscribe([this](const auto& b) {    
-    // You can also write code here that you would normally write in resized().
+// You can also get paint events.
+rxComponent.rx.paint().subscribe([this](Graphics& g) {    
+    // You can also write code here that you would normally write in paint().
 }) | jx::disposed(jx); 
-
-// change bounds
-rxComponent.rx.bounds.get_subscriber().on_next(newBounds)
-
 ```
 ### RXTimer
 The timer callback is old, so let's subscribe to it in a nice way.
@@ -92,6 +90,7 @@ public:
         ultimate_timer.subscribe([]() {
             // on your nice code...
         }) | jx::disposed(bag);
+
         // Of course you can do it with timer.start() and timer.stop()!
     }
 
