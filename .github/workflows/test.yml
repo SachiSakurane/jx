@@ -40,13 +40,14 @@ jobs:
 
       - if: ${{ matrix.os }} == "ubuntu-latest"
         name: Run Test(Linux)
-        run:
-          xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME" > ${LOG_FILE_NAME}
+        run: |
+          xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
+          "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - if: ${{ matrix.os }} == "ubuntu-latest"
         name: Run Test(OSX)
-        run:
-          "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME" > ${LOG_FILE_NAME}
+        run: |
+          "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - name: Sanity Check
         run:
