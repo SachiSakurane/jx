@@ -47,7 +47,7 @@ jobs:
       - name: Run Test(OSX)
         if: matrix.os == 'macOS-latest'
         run: |
-          "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
+          "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - name: Sanity Check
         run:
