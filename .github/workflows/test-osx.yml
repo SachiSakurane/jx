@@ -11,6 +11,7 @@ jobs:
     env:
       PRODUCT_NAME: Test
       LOG_FILE_NAME: test.log
+      BUILD_DIRECTORY: ninja-build
     runs-on: macOS-latest
     steps:
 
@@ -19,14 +20,17 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install Ninja
+      uses: seanmiddleditch/gha-setup-ninja@master
+
     - name: Build
       run: |
-        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
-        cmake --build cmake-build --target Test -j 2
+        cmake -B ${BUILD_DIRECTORY} -G Ninja -DCMAKE_BUILD_TYPE=Release
+        ninja -C ${BUILD_DIRECTORY} Test -j 4
 
     - name: Run Test
       run: |
-        "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME" > $LOG_FILE_NAME
+        "./${BUILD_DIRECTORY}/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME" > $LOG_FILE_NAME
         cat $LOG_FILE_NAME
         if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
           echo "Test Succeed"
