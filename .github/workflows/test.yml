@@ -50,9 +50,9 @@ jobs:
           "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - name: Sanity Check
-        run:
-          cat $LOG_FILE_NAME
-          if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
+        run: |
+          cat ${LOG_FILE_NAME}
+          if [$(grep "FAILED!!" ${LOG_FILE_NAME}) = ""]; then
             echo "Test Succeed"
           else
             echo "Test Failed"
