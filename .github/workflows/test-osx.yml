@@ -19,10 +19,13 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install Ninja
+      uses: ashutoshvarma/setup-ninja@master
+
     - name: Build
       run: |
-        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
-        cmake --build cmake-build --target Test -j 2
+        cmake -B ninja-build -DCMAKE_BUILD_TYPE=Release -G Ninja
+        ninja -C ninja-build Test -j 4
 
     - name: Run Test
       run: |

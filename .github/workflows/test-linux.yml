@@ -20,14 +20,17 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install Ninja
+      uses: ashutoshvarma/setup-ninja@master
+
     - name: Install Dependency Packages
       run: |
         sudo apt-get install -y xvfb libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
 
     - name: Build
       run: |
-        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
-        cmake --build cmake-build --target Test -j 2
+        cmake -B ninja-build -DCMAKE_BUILD_TYPE=Release -G Ninja
+        ninja -C ninja-build Test -j 4
 
     - name: Run Test
       run: |
