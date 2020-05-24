@@ -21,7 +21,7 @@ jobs:
         submodules: recursive
 
     - name: Install Ninja
-      uses: seanmiddleditch/gha-setup-ninja@master
+      uses: ashutoshvarma/setup-ninja@master
 
     - name: Install Dependency Packages
       run: |
@@ -29,9 +29,8 @@ jobs:
 
     - name: Build
       run: |
-        cmake -B ninja-build -G Ninja -DCMAKE_BUILD_TYPE=Release
-        ninja -C ninja-build Test -j 4
-
+        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
+        cmake --build cmake-build --target Test -j 4
     - name: Run Test
       run: |
         xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME" > $LOG_FILE_NAME

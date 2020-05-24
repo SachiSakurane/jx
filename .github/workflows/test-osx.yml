@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+  pull_request:
 
 jobs:
   test-osx:
@@ -24,7 +25,7 @@ jobs:
 
     - name: Build
       run: |
-        cmake -B ninja-build -DCMAKE_BUILD_TYPE=Release -G Ninja
+        cmake -B ninja-build -G Ninja -DCMAKE_BUILD_TYPE=Release
         ninja -C ninja-build Test -j 4
 
     - name: Run Test
