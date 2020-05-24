@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  test-all:
+  test:
     env:
       PRODUCT_NAME: Test
       LOG_FILE_NAME: test.log
@@ -28,26 +28,26 @@ jobs:
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - if: ${{ matrix.os }} == "ubuntu-latest"
-        name: Install Dependency Packages
-        run: |
-          sudo apt-get install -y xvfb libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
+      - name: Install Dependency Packages
+        if: ${{ matrix.os }} == "ubuntu-latest"
+          run: |
+            sudo apt-get install -y xvfb libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
 
       - name: Build
         run: |
           cmake -B ${BUILD_DIRECTORY} -G Ninja -DCMAKE_BUILD_TYPE=Release
           ninja -C ${BUILD_DIRECTORY} Test -j 4
 
-      - if: ${{ matrix.os }} == "ubuntu-latest"
-        name: Run Test(Linux)
-        run: |
-          xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
-          "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
+      - name: Run Test(Linux)
+        if: ${{ matrix.os }} == "ubuntu-latest"
+          run: |
+            xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
+            "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
-      - if: ${{ matrix.os }} == "ubuntu-latest"
-        name: Run Test(OSX)
-        run: |
-          "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
+      - name: Run Test(OSX)
+        if: ${{ matrix.os }} == "macOS-latest"
+          run: |
+            "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - name: Sanity Check
         run:
