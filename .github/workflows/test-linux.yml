@@ -12,6 +12,7 @@ jobs:
     env:
       PRODUCT_NAME: Test
       LOG_FILE_NAME: test.log
+      BUILD_DIRECTORY: ninja-build
     runs-on: ubuntu-latest
     steps:
 
@@ -29,11 +30,12 @@ jobs:
 
     - name: Build
       run: |
-        cmake -B cmake-build -DCMAKE_BUILD_TYPE=Release
-        cmake --build cmake-build --target Test -j 4
+        cmake -B ${BUILD_DIRECTORY} -G Ninja -DCMAKE_BUILD_TYPE=Release
+        ninja -C ${BUILD_DIRECTORY} Test -j 4
+
     - name: Run Test
       run: |
-        xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" "./cmake-build/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME" > $LOG_FILE_NAME
+        xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" "./${BUILD_DIRECTORY}/$PRODUCT_NAME/${PRODUCT_NAME}_artefacts/Release/$PRODUCT_NAME" > $LOG_FILE_NAME
         cat $LOG_FILE_NAME
         if [$(grep "FAILED!!" $LOG_FILE_NAME) = ""]; then
           echo "Test Succeed"
