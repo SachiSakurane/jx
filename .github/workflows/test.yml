@@ -30,8 +30,8 @@ jobs:
 
       - name: Install Dependency Packages
         if: ${ matrix.os } == "ubuntu-latest"
-          run: |
-            sudo apt-get install -y xvfb libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
+        run: |
+          sudo apt-get install -y xvfb libgtk-3-dev libxinerama-dev libxrandr-dev libxcursor-dev mesa-common-dev libasound2-dev freeglut3-dev libxcomposite-dev libcurl4-openssl-dev
 
       - name: Build
         run: |
@@ -40,14 +40,14 @@ jobs:
 
       - name: Run Test(Linux)
         if: ${ matrix.os } == "ubuntu-latest"
-          run: |
-            xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
-            "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
+        run: |
+          xvfb-run -a --server-args="-screen 0 1280x800x24 -ac -nolisten tcp -dpi 96 +extension RANDR" \
+          "./${BUILD_DIRECTORY}/${PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - name: Run Test(OSX)
         if: ${ matrix.os } == "macOS-latest"
-          run: |
-            "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
+        run: |
+          "./${BUILD_DIRECTORY}/{$PRODUCT_NAME}/${PRODUCT_NAME}_artefacts/Release/${PRODUCT_NAME}.app/Contents/MacOS/${PRODUCT_NAME}" > ${LOG_FILE_NAME}
 
       - name: Sanity Check
         run:
